@@ -1,29 +1,52 @@
 <template>
-  <q-page padding>
-    <q-select label="Name" :options="['Luke', 'John', 'James']" v-model="selected" outlined></q-select>
-    <q-btn label="click me" color="purple"></q-btn>
-    <q-card>
-      <q-card-section class="bg-purple">
-        <h5 class="text-white text-h5">Quasar Card </h5>
-      </q-card-section>
-      <q-card-section>
-        <p class="text-body1">
-          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Animi explicabo quasi tempora dicta placeat labore excepturi non quibusdam sunt? Eveniet eos magni magnam explicabo consequatur sed libero minima. Iste, exercitationem?
-        </p>
-      </q-card-section>
+  <q-page class="row">
+    <q-card class="col-xs-9">
+      <q-toolbar>
+        <q-input
+          :model-value="search"
+          class="full-width"
+          placeholder="Search"
+          dense
+        >
+          <template #prepend>
+            <q-icon name="mdi-magnify"></q-icon>
+          </template>
+        </q-input>
+      </q-toolbar>
+
+      <TodosList bordered />
     </q-card>
+    <div class="col-xs-3">
+      <q-toolbar class="bg-primary">
+        <CreateTodoButton
+          fab
+          style="margin-bottom: -3rem"
+          class="q-ml-lg"
+          color="secondary"
+          icon="mdi-plus"
+        />
+      </q-toolbar>
+    </div>
   </q-page>
 </template>
 
 <script>
-import { defineComponent } from 'vue';
-
+import { defineComponent, ref } from "vue";
+import CreateTodoButton from "components/CreateTodoButton.vue";
+import TodosList from "components/TodosList.vue";
 export default defineComponent({
-  name: 'PageIndex',
-  data () {
+  name: "PageIndex",
+  components: {
+    CreateTodoButton,
+    TodosList,
+  },
+  setup() {
+    const selected = ref(null);
+    const search = ref("");
     return {
-      selected: null
+      selected,
+      search,
     };
-  }
+  },
 });
 </script>
